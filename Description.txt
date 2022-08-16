@@ -1,5 +1,0 @@
-CSE 215 Project on Supermarket Stock Management.
-
-Done by-
-Mahir Shahriar Tamim
-Sharjil Khan
