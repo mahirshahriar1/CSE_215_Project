@@ -7,6 +7,10 @@ import javax.swing.JOptionPane;
 
 public class Employee extends User {
 
+    Employee()
+    {
+        
+    }
     Employee(int id, String password) {
         super(id, password);
     }

@@ -12,6 +12,10 @@ public class User {
     protected String password;
     ArrayList <Product> products=new ArrayList<Product>();;
     
+    User()
+    {
+        
+    }
     User(int id, String password)
     {
         this.id=id;
@@ -49,13 +53,9 @@ public class User {
             
         }
     }
-    public void seeProducts()
+    public void seeProducts(User e)
     { 
-        populateArrayList();
-        for(int i=0;i<products.size();i++)
-        {           
-            System.out.println(products.get(i).toString());
-        }
+        new seeProductsFrame(e).setVisible(true);
     }
     
     public void searchProducts(int id)
