@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,48 +21,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class editProducts extends javax.swing.JFrame {
 
-    ArrayList<Product> products = new ArrayList<Product>();
-
+    Employee e=new Employee();
+    DecimalFormat formatter;
     public editProducts() {
+    formatter=new DecimalFormat("#.##");
         initComponents();
-        populateArrayList();
+        e.populateArrayList();
         addDataToTable();
     }
 
-    public void populateArrayList() {
-        try {
-            FileInputStream file = new FileInputStream("Products.dat");
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-
-            boolean endOfFile = false;
-
-            while (!endOfFile) {
-                try {
-                    products.add((Product) inputFile.readObject());
-                } catch (EOFException e) {
-                    endOfFile = true;
-                } catch (Exception f) {
-                    JOptionPane.showMessageDialog(null, f.getMessage());
-                }
-
-            }
-            inputFile.close();
-        } catch (IOException e) {
-
-        }
-
-    }
-
+   
     public void addDataToTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Object rowData[] = new Object[5];
 
-        for (int i = 0; i < products.size(); i++) {
-            rowData[0] = products.get(i).getId();
-            rowData[1] = products.get(i).getQuantity();
-            rowData[2] = products.get(i).getName();
-            rowData[3] = products.get(i).getPrice();
-            rowData[4] = products.get(i).getType();
+        for (int i = 0; i < e.products.size(); i++) {
+            rowData[0] = e.products.get(i).getId();
+            rowData[1] = e.products.get(i).getQuantity();
+            rowData[2] = e.products.get(i).getName();
+            rowData[3] = formatter.format(e.products.get(i).getPrice());
+            rowData[4] = e.products.get(i).getType();
             model.addRow(rowData);
         }
 
@@ -262,26 +241,7 @@ public class editProducts extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
-    public void saveProductsToFile() {
-        try {
-            FileOutputStream file = new FileOutputStream("products.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
 
-            for (int i = 0; i < products.size(); i++) {
-                outputFile.writeObject(products.get(i));
-            }
-
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "Successfully Saved");
-            
-           DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            model.setRowCount(0);
-            addDataToTable();
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         int id = 0, quantity = 0;
@@ -312,31 +272,34 @@ public class editProducts extends javax.swing.JFrame {
             
             
             if (flag) {
-                for (int i = 0; i < products.size(); i++) {
-                    if (id == products.get(i).getId()) {
-                        products.get(i).setQuantity(quantity);
-                        products.get(i).setName(name);
-                        products.get(i).setPrice(price);
-                        products.get(i).setType(type);                        
+                for (int i = 0; i < e.products.size(); i++) {
+                    if (id == e.products.get(i).getId()) {
+                        e.products.get(i).setQuantity(quantity);
+                        e.products.get(i).setName(name);
+                        e.products.get(i).setPrice(price);
+                        e.products.get(i).setType(type);                        
                         break;
                     }
                 }
             }
         }
 
-        saveProductsToFile();
+        e.saveProductsToFile();
+             DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            model.setRowCount(0);
+            addDataToTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int id=Integer.parseInt(jTextField1.getText());
         
-         for (int i = 0; i < products.size(); i++) {
-                    if (id == products.get(i).getId()) {
-                      products.remove(i);
+         for (int i = 0; i < e.products.size(); i++) {
+                    if (id == e.products.get(i).getId()) {
+                     e.products.remove(i);
                       break;
                     }
                 }
-         saveProductsToFile();
+         e.saveProductsToFile();
         
     }//GEN-LAST:event_jButton3ActionPerformed
 

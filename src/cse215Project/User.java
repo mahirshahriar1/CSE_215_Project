@@ -7,6 +7,29 @@ import java.io.ObjectInputStream;
 import java.util.*;
 import javax.swing.JOptionPane;
 
+class IDComparator implements Comparator<Product> {
+  
+    // override the compare() method
+    public int compare(Product p1, Product p2)
+    {
+        if (p1.getId() == p2.getId())
+            return 0;        
+        else if (p1.getId() > p2.getId())
+            return 1;
+        else
+            return -1;
+    }
+    
+}
+class TypeComparator implements Comparator<Product> {
+  
+    // override the compare() method
+    public int compare(Product p1, Product p2)
+    {
+         return p1.getType().compareTo(p2.getType());
+    }    
+}
+
 public class User {
     protected int id;
     protected String password;
@@ -52,6 +75,8 @@ public class User {
         {
             
         }
+        Collections.sort(products,new IDComparator());
+        Collections.sort(products,new TypeComparator());
     }
     public void seeProducts(User e)
     { 

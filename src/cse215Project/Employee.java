@@ -32,24 +32,29 @@ public class Employee extends User {
             JOptionPane.showMessageDialog(null, "Copy Id");
         } else {
             products.add(product);
-            try {
-                FileOutputStream file = new FileOutputStream("products.dat");
-                ObjectOutputStream outputFile = new ObjectOutputStream(file);
-
-                for (int i = 0; i < products.size(); i++) {
-                    outputFile.writeObject(products.get(i));
-                }
-
-                outputFile.close();
-                JOptionPane.showMessageDialog(null, "Successfully Saved");
-
-            } catch (IOException e) {
-
-            }
+             saveProductsToFile();
         }
 
         clearArrayList();
 
     }
+      public void saveProductsToFile() {
+        try {
+            FileOutputStream file = new FileOutputStream("products.dat");
+            ObjectOutputStream outputFile = new ObjectOutputStream(file);
+
+            for (int i = 0; i < products.size(); i++) {
+                outputFile.writeObject(products.get(i));
+            }
+
+            outputFile.close();
+            JOptionPane.showMessageDialog(null, "Successfully Saved");
+            
+   
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
 
 }

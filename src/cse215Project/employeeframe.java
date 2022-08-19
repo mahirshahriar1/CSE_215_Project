@@ -133,7 +133,8 @@ public class employeeframe extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new checkMessage().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

@@ -4,12 +4,11 @@
  */
 package cse215Project;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,63 +16,31 @@ import javax.swing.table.DefaultTableModel;
  * @author Mahir
  */
 public class seeProductsFrame extends javax.swing.JFrame {
-
+    
+    DecimalFormat formatter;
     User e = new User();
-    ArrayList <Product> products=new ArrayList<Product>();;
-       
-    public seeProductsFrame() {
-        initComponents();
-        populateArrayList();
-        addDataToTable();
-    }
 
     public seeProductsFrame(User e) {
+        formatter=new DecimalFormat("#.##");
         this.e = e;
         initComponents();
-        populateArrayList();
+        e.populateArrayList();
         addDataToTable();
     }
 
-    public void populateArrayList() {
-        try {
-            FileInputStream file = new FileInputStream("Products.dat");
-            ObjectInputStream inputFile = new ObjectInputStream(file);
+    public void addDataToTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[5];
 
-            boolean endOfFile = false;
-
-            while (!endOfFile) {
-                try {
-                    products.add((Product) inputFile.readObject());
-                } catch (EOFException e) {
-                    endOfFile = true;
-                } catch (Exception f) {
-                    JOptionPane.showMessageDialog(null, f.getMessage());
-                }
-
-            }
-            inputFile.close();
-        } catch (IOException e) {
-
-        }
-
-    }
-    
-    public void addDataToTable()
-    {
-        DefaultTableModel model= (DefaultTableModel) jTable1.getModel();
-        Object rowData[]=new Object[5];
-        
-        for(int i=0;i<products.size();i++)
-        {
-            rowData[0]=products.get(i).getId();
-            rowData[1]=products.get(i).getQuantity();
-            rowData[2]=products.get(i).getName();
-            rowData[3]=products.get(i).getPrice();
-            rowData[4]=products.get(i).getType();
+        for (int i = 0; i < e.products.size(); i++) {
+            rowData[0] = e.products.get(i).getId();
+            rowData[1] = e.products.get(i).getQuantity();
+            rowData[2] = e.products.get(i).getName();
+            rowData[3] = formatter.format(e.products.get(i).getPrice());
+            rowData[4] = e.products.get(i).getType();
             model.addRow(rowData);
         }
-        
-        
+
     }
 
     /**
@@ -88,6 +55,9 @@ public class seeProductsFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +86,15 @@ public class seeProductsFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setText("Enter ID:");
+
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,18 +105,32 @@ public class seeProductsFrame extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                        .addGap(71, 71, 71)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(200, 200, 200)
+                        .addComponent(jLabel1)
+                        .addGap(55, 55, 55)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(347, 347, 347)
+                        .addComponent(jButton2)))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,6 +142,42 @@ public class seeProductsFrame extends javax.swing.JFrame {
             new employeeframe().setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String s="";  
+        int id=-1;
+            s=jTextField1.getText();
+            if(s.isEmpty())
+                JOptionPane.showMessageDialog(null, "No input made");
+            else
+            {
+                try{
+                          id=Integer.parseInt(s);
+                }catch(NumberFormatException e)
+                {
+                        JOptionPane.showMessageDialog(null, "ID should be digits only");
+                }
+          boolean flag=true;
+                for(int i=0;i<e.products.size();i++)
+                {
+                    if(e.products.get(i).getId()==id)
+                    {         
+                     
+                        String output= "ID: "+e.products.get(i).getId()+"\nQuantity: "+e.products.get(i).getQuantity()
+                                                        +"\nName: "+e.products.get(i).getName()+"\nPrice: "+formatter.format(e.products.get(i).getPrice())
+                                                        +"\nType: "+e.products.get(i).getType();
+                        
+                       
+                       JOptionPane.showMessageDialog(null,output,"Product Found",JOptionPane.INFORMATION_MESSAGE);
+                        flag=false;
+                    }
+                }
+            if(flag)
+                JOptionPane.showMessageDialog(null, "Product Not Found");
+            }
+            
+                
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,15 +208,19 @@ public class seeProductsFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new seeProductsFrame().setVisible(true);
+                new seeProductsFrame(new User()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
