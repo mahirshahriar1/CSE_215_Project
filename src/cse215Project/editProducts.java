@@ -4,13 +4,7 @@
  */
 package cse215Project;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,48 +14,33 @@ import javax.swing.table.DefaultTableModel;
  */
 public class editProducts extends javax.swing.JFrame {
 
-    ArrayList<Product> products = new ArrayList<Product>();
+    Employee e = new Employee();
+    DecimalFormat formatter;
 
     public editProducts() {
+        formatter = new DecimalFormat("#.##");
         initComponents();
-        populateArrayList();
+        e.populateArrayList();
         addDataToTable();
     }
-
-    public void populateArrayList() {
-        try {
-            FileInputStream file = new FileInputStream("Products.dat");
-            ObjectInputStream inputFile = new ObjectInputStream(file);
-
-            boolean endOfFile = false;
-
-            while (!endOfFile) {
-                try {
-                    products.add((Product) inputFile.readObject());
-                } catch (EOFException e) {
-                    endOfFile = true;
-                } catch (Exception f) {
-                    JOptionPane.showMessageDialog(null, f.getMessage());
-                }
-
-            }
-            inputFile.close();
-        } catch (IOException e) {
-
-        }
-
+     public editProducts(Employee e) {
+         this.e=e;
+        formatter = new DecimalFormat("#.##");
+        initComponents();
+        e.populateArrayList();
+        addDataToTable();
     }
 
     public void addDataToTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Object rowData[] = new Object[5];
 
-        for (int i = 0; i < products.size(); i++) {
-            rowData[0] = products.get(i).getId();
-            rowData[1] = products.get(i).getQuantity();
-            rowData[2] = products.get(i).getName();
-            rowData[3] = products.get(i).getPrice();
-            rowData[4] = products.get(i).getType();
+        for (int i = 0; i < e.products.size(); i++) {
+            rowData[0] = e.products.get(i).getId();
+            rowData[1] = e.products.get(i).getQuantity();
+            rowData[2] = e.products.get(i).getName();
+            rowData[3] = formatter.format(e.products.get(i).getPrice());
+            rowData[4] = e.products.get(i).getType();
             model.addRow(rowData);
         }
 
@@ -92,7 +71,7 @@ public class editProducts extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jButton1.setText("back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +80,7 @@ public class editProducts extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -162,39 +142,30 @@ public class editProducts extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3)
+                                .addGap(20, 20, 20))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField1)
                                     .addComponent(jTextField2)
                                     .addComponent(jTextField3)
                                     .addComponent(jTextField4)
-                                    .addComponent(jComboBox1, 0, 192, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(70, 70, 70)
-                                                .addComponent(jLabel2))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(140, 140, 140)
-                                                .addComponent(jButton2)
-                                                .addGap(38, 38, 38)
-                                                .addComponent(jButton3)))
-                                        .addGap(0, 37, Short.MAX_VALUE)))))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                                    .addComponent(jComboBox1, 0, 192, Short.MAX_VALUE))))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,10 +173,6 @@ public class editProducts extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jButton1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -230,8 +197,11 @@ public class editProducts extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
-                            .addComponent(jButton3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,7 +209,9 @@ public class editProducts extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-        new employeeframe().setVisible(true);
+        employeeframe temp = new employeeframe(e);
+        temp.setVisible(true);
+        temp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -262,26 +234,7 @@ public class editProducts extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
-    public void saveProductsToFile() {
-        try {
-            FileOutputStream file = new FileOutputStream("products.dat");
-            ObjectOutputStream outputFile = new ObjectOutputStream(file);
 
-            for (int i = 0; i < products.size(); i++) {
-                outputFile.writeObject(products.get(i));
-            }
-
-            outputFile.close();
-            JOptionPane.showMessageDialog(null, "Successfully Saved");
-            
-           DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            model.setRowCount(0);
-            addDataToTable();
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         int id = 0, quantity = 0;
@@ -309,35 +262,57 @@ public class editProducts extends javax.swing.JFrame {
             name = jTextField3.getText();
             int ind = jComboBox1.getSelectedIndex();
             type = jComboBox1.getItemAt(ind);
-            
-            
+
             if (flag) {
-                for (int i = 0; i < products.size(); i++) {
-                    if (id == products.get(i).getId()) {
-                        products.get(i).setQuantity(quantity);
-                        products.get(i).setName(name);
-                        products.get(i).setPrice(price);
-                        products.get(i).setType(type);                        
+                for (int i = 0; i < e.products.size(); i++) {
+                    if (id == e.products.get(i).getId()) {
+                        e.products.get(i).setQuantity(quantity);
+                        e.products.get(i).setName(name);
+                        e.products.get(i).setPrice(price);
+                        e.products.get(i).setType(type);
                         break;
                     }
                 }
             }
         }
+         if(e.saveProductsToFile())
+            {
+                JOptionPane.showMessageDialog(null, "Successfully Edited");
+                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+              model.setRowCount(0);
+             addDataToTable();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "An Error Occured, Could not Save Edited Products");
 
-        saveProductsToFile();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int id=Integer.parseInt(jTextField1.getText());
-        
-         for (int i = 0; i < products.size(); i++) {
-                    if (id == products.get(i).getId()) {
-                      products.remove(i);
-                      break;
-                    }
+        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()
+                || jTextField4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please dont leave any fields blank");
+        } else {
+
+            int id = Integer.parseInt(jTextField1.getText());
+
+            for (int i = 0; i < e.products.size(); i++) {
+                if (id == e.products.get(i).getId()) {
+                    e.products.remove(i);
+                    break;
                 }
-         saveProductsToFile();
-        
+            }
+            if(e.saveProductsToFile())
+            {
+                JOptionPane.showMessageDialog(null, "Successfully Deleted");
+                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+              model.setRowCount(0);
+             addDataToTable();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "An Error Occured, Could not Delete Product");
+           
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

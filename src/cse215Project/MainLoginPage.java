@@ -53,7 +53,7 @@ public class MainLoginPage extends javax.swing.JFrame {
                 .addGap(182, 182, 182)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(252, Short.MAX_VALUE))
         );
 
@@ -62,18 +62,20 @@ public class MainLoginPage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        File file = new File("emp.txt");
+        File file = new File("emp.dat");
         if (!file.exists()) {
             JOptionPane.showMessageDialog(null, "No Employee Exists.");
         } else {
             this.dispose();
-            new Login(new Employee()).setVisible(true);
+            Login login=new Login(new Employee());
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        File file = new File("admin.txt");
+        File file = new File("admin.dat");
         FileWriter writer = null;
         if (!file.exists()) {
             String pass = JOptionPane.showInputDialog(null, "Admin Password Not Set Yet. Please Enter Password");
@@ -101,7 +103,9 @@ public class MainLoginPage extends javax.swing.JFrame {
         } else
         {   
             this.dispose();
-            new Login(new Admin()).setVisible(true);
+            Login login=new Login(new Admin());
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
         }
             
     }//GEN-LAST:event_jButton2ActionPerformed
