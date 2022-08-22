@@ -59,7 +59,7 @@ public class seeProductsFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -137,9 +137,17 @@ public class seeProductsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        e.products.clear();
         this.dispose();
         if (e instanceof Employee) {
-            new employeeframe().setVisible(true);
+            
+            employeeframe temp=new employeeframe((Employee)e);
+                    temp.setVisible(true); temp.setLocationRelativeTo(null);
+        }
+        else if(e instanceof Admin)
+        {
+            adminframe temp=new adminframe();
+                    temp.setVisible(true); temp.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

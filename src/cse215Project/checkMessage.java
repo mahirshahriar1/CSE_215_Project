@@ -10,10 +10,15 @@ package cse215Project;
  */
 public class checkMessage extends javax.swing.JFrame {
 
-    /**
-     * Creates new form checkMessage
-     */
+    Employee e;
+
     public checkMessage() {
+        initComponents();
+    }
+
+    public checkMessage(Employee e) {
+
+        this.e = e;
         initComponents();
     }
 
@@ -30,7 +35,7 @@ public class checkMessage extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jTextArea1.setColumns(20);
@@ -72,8 +77,11 @@ public class checkMessage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.dispose();
-       new employeeframe().setVisible(true);
+        this.dispose();
+        employeeframe temp = new employeeframe(e);
+        temp.setVisible(true);
+        temp.setLocationRelativeTo(null);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

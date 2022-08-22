@@ -4,6 +4,7 @@
  */
 package cse215Project;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +16,13 @@ public class addProducts extends javax.swing.JFrame {
     /**
      * Creates new form addProducts
      */
+    Employee e;
     public addProducts() {
+         initComponents();
+    }
+    
+    public addProducts(Employee e) {
+        this.e=e;
         initComponents();
     }
 
@@ -41,7 +48,7 @@ public class addProducts extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jButton1.setText("ADD");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -64,6 +71,30 @@ public class addProducts extends javax.swing.JFrame {
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
+
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField3KeyPressed(evt);
+            }
+        });
+
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
             }
         });
 
@@ -136,37 +167,51 @@ public class addProducts extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Employee employee = new Employee();
-        int id = 0, quantity = 0;
-        double price = 0;
-        String name = "", type = "";
-        boolean flag = true;
-
-        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()
+    public void add()
+    {
+        String tmp=jTextField1.getText().trim();
+         if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()
                 || jTextField4.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please dont leave any fields blank");
-        } else {
-            try {
-                id = Integer.parseInt(jTextField1.getText());
-                quantity = Integer.parseInt(jTextField2.getText());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "ID and Quantity should only be of  Integer Numbers");
-                flag = false;
-            }
-            try {
-                price = Double.parseDouble(jTextField4.getText());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Format error in price");
-                flag = false;
-            }
-            name = jTextField3.getText();
-            int ind = jComboBox1.getSelectedIndex();
-            type = jComboBox1.getItemAt(ind);
-            if (flag) {
-                employee.addProducts(id, quantity, name, price, type);
+            JOptionPane.showMessageDialog(null, "Please enter all fields");
+        }else if(tmp.charAt(0)=='0'){
+            JOptionPane.showMessageDialog(null, "ID cannot have leading zeroes");
+        } 
+         else {
+
+            Employee employee = new Employee();
+            int id = 0, quantity = 0;
+            double price = 0;
+            String name = "", type = "";
+            boolean flag = true;
+
+            if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()
+                    || jTextField4.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please dont leave any fields blank");
+            } else {
+                try {
+                    id = Integer.parseInt(jTextField1.getText());
+                    quantity = Integer.parseInt(jTextField2.getText());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ID and Quantity should only be of  Integer Numbers");
+                    flag = false;
+                }
+                try {
+                    price = Double.parseDouble(jTextField4.getText());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Format error in price");
+                    flag = false;
+                }
+                name = jTextField3.getText();
+                int ind = jComboBox1.getSelectedIndex();
+                type = jComboBox1.getItemAt(ind);
+                if (flag) {
+                    employee.addProducts(id, quantity, name, price, type);
+                }
             }
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       add();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -174,9 +219,33 @@ public class addProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-               this.dispose();
-               new employeeframe().setVisible(true);
+        this.dispose();
+        employeeframe temp = new employeeframe(e);
+        temp.setVisible(true);
+        temp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                    add();
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                    add();
+    }//GEN-LAST:event_jTextField2KeyPressed
+
+    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                    add();
+    }//GEN-LAST:event_jTextField3KeyPressed
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+                  if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                      add();
+    }//GEN-LAST:event_jTextField4KeyPressed
 
     /**
      * @param args the command line arguments
