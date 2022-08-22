@@ -137,7 +137,7 @@ public class seeProductsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        e.clearArrayList();
+        e.products.clear();
         this.dispose();
         if (e instanceof Employee) {
             
@@ -147,6 +147,11 @@ public class seeProductsFrame extends javax.swing.JFrame {
         else if(e instanceof Admin)
         {
             adminframe temp=new adminframe();
+                    temp.setVisible(true); temp.setLocationRelativeTo(null);
+        }
+        else if(e instanceof Staff)
+        {
+            staffFrame temp=new staffFrame((Staff)e);
                     temp.setVisible(true); temp.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

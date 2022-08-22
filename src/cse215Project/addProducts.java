@@ -169,10 +169,14 @@ public class addProducts extends javax.swing.JFrame {
 
     public void add()
     {
+        String tmp=jTextField1.getText().trim();
          if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()
                 || jTextField4.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter all fields");
-        } else {
+        }else if(tmp.charAt(0)=='0'){
+            JOptionPane.showMessageDialog(null, "ID cannot have leading zeroes");
+        } 
+         else {
 
             Employee employee = new Employee();
             int id = 0, quantity = 0;

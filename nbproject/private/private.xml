@@ -3,17 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/editProducts.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/seeProductsFrame.java</file>
+            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/Invoice.java</file>
+            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/addProductToCart.java</file>
             <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/Main.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/checkMessage.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/addProducts.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/User.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/adminframe.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/addEmployee.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/employeeframe.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/Login.java</file>
-            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/Employee.java</file>
+            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/Cart.java</file>
+            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/checkCart.java</file>
+            <file>file:/D:/1MAHIR/semester%203%20(cse215%20mat130%20his103%20phy107)/cse215/1_Java%20file%20projects/cse215Project/cse215Project/src/cse215Project/staffFrame.java</file>
         </group>
     </open-files>
 </project-private>
