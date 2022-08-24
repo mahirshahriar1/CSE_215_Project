@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package cse215Project;
 
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Mahir
- */
 public class editProducts extends javax.swing.JFrame {
 
     Employee e = new Employee();
@@ -209,6 +202,7 @@ public class editProducts extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        e.clearArrayList();
         employeeframe temp = new employeeframe(e);
         temp.setVisible(true);
         temp.setLocationRelativeTo(null);
@@ -273,9 +267,7 @@ public class editProducts extends javax.swing.JFrame {
                         break;
                     }
                 }
-            }
-        }
-         if(e.saveProductsToFile())
+                 if(e.saveProductsToFile())
             {
                 JOptionPane.showMessageDialog(null, "Successfully Edited");
                  DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -284,6 +276,9 @@ public class editProducts extends javax.swing.JFrame {
             }
             else
                 JOptionPane.showMessageDialog(null, "An Error Occured, Could not Save Edited Products");
+            }
+        }
+        
 
 
     }//GEN-LAST:event_jButton2ActionPerformed

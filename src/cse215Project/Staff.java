@@ -14,4 +14,5 @@ public class Staff extends User implements Serializable {
         super(id, password,name);
     }
     
+    
 }

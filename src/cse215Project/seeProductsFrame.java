@@ -149,6 +149,11 @@ public class seeProductsFrame extends javax.swing.JFrame {
             adminframe temp=new adminframe();
                     temp.setVisible(true); temp.setLocationRelativeTo(null);
         }
+        else if(e instanceof Staff)
+        {
+            staffFrame temp=new staffFrame((Staff)e);
+                    temp.setVisible(true); temp.setLocationRelativeTo(null);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

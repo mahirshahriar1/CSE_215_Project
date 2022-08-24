@@ -6,23 +6,16 @@ package cse215Project;
 
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Mahir
- */
+
 public class Login extends javax.swing.JFrame {
 
     private User e;
+    private Admin ad=new Admin();
    // private Employee emp;
     private int id;
     private String password;
@@ -41,35 +34,7 @@ public class Login extends javax.swing.JFrame {
             id = 1;
         }
     }
-    private ArrayList<Employee> employees=new ArrayList<Employee>();
-    public void populateArrayListEmployee()
-    {
-        try{
-            FileInputStream file=new FileInputStream("emp.dat");
-            ObjectInputStream inputFile=new ObjectInputStream(file);
-            
-            boolean endOfFile=false;
-     
-            while(!endOfFile)
-            {
-                try{
-                    employees.add((Employee)inputFile.readObject());
-                }catch(EOFException e)
-                {
-                     endOfFile=true;
-                }catch(Exception f)
-                {
-                      JOptionPane.showMessageDialog(null, f.getMessage());
-                }             
-                
-            }
-            inputFile.close();
-        }catch(IOException e)
-        {
-            
-        }
-
-    }
+  
 
     public void validateIDandPassword() {
            boolean mark = false;
@@ -103,8 +68,7 @@ public class Login extends javax.swing.JFrame {
 
         } else {
 
-            if (e instanceof Employee) {
-                file1 = new File("emp.dat");
+            if (e instanceof Employee||e instanceof Staff) {              
                 String temp = jTextField1.getText().trim();
                 if (temp.charAt(0) == '0') {
                     JOptionPane.showMessageDialog(null, "ID cannot have leading zeroes");
@@ -123,20 +87,37 @@ public class Login extends javax.swing.JFrame {
             }
          
             if (run && e instanceof Employee) {
-                populateArrayListEmployee();
+                ad.populateArrayListEmployee();
                 password = jPasswordField1.getText();
 
-                for(int i=0;i<employees.size();i++)
+                for(int i=0;i<ad.employees.size();i++)
                 {                   
-                    if(employees.get(i).getId()==id&&employees.get(i).getPassword().equals(password))
+                    if(ad.employees.get(i).getId()==id&&ad.employees.get(i).getPassword().equals(password))
                     {
-                        e=employees.get(i);
+                        e=ad.employees.get(i);
                         mark=true;
                         break;
                     }
                     
                 }
 
+            }
+            else if(run && e instanceof Staff)
+            {
+                ad.populateArrayListStaff();
+                password = jPasswordField1.getText();
+
+                for(int i=0;i<ad.staffs.size();i++)
+                {                   
+                    if(ad.staffs.get(i).getId()==id&&ad.staffs.get(i).getPassword().equals(password))
+                    {
+                        e=ad.staffs.get(i);
+                        mark=true;
+                        break;
+                    }
+                    
+                }
+                
             }
         }
         if (run&&!mark) {
@@ -147,7 +128,14 @@ public class Login extends javax.swing.JFrame {
                 employeeframe temp = new employeeframe((Employee)e);
                 temp.setVisible(true);
                 temp.setLocationRelativeTo(null);
-            } else {
+            } else if(e instanceof Staff)
+            {
+                   staffFrame temp = new staffFrame((Staff)e);
+                temp.setVisible(true);
+                temp.setLocationRelativeTo(null);
+                
+            }
+            else if(e instanceof Admin){
                 adminframe temp = new adminframe();
                 temp.setVisible(true);
                 temp.setLocationRelativeTo(null);
