@@ -25,10 +25,7 @@ public class editEmployeeAndStaff extends javax.swing.JFrame {
         e = new Admin();
         if (x instanceof Employee) {
             e.populateArrayListEmployee();
-            for (int i = 0; i < e.employees.size(); i++) {
-                System.out.println(e.employees.get(i).getId());
-            }
-
+      
             empArray = new String[e.employees.size()];
 
             for (int i = 0; i < e.employees.size(); i++) {

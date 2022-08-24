@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 import javax.swing.JOptionPane;
 
-class PComparator implements Comparator<Product> {
+ class PComparator implements Comparator<Product> {
 
     // override the compare() method
     public int compare(Product p1, Product p2) {
