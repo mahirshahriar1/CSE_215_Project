@@ -7,7 +7,7 @@ public class Main {
                        
               try{
                  String str="com.jtattoo.plaf.texture.TextureLookAndFeel";
-                 //String str="com.jtattoo.plaf.noire.NoireLookAndFeel";
+              // String str="com.jtattoo.plaf.noire.NoireLookAndFeel";
                              UIManager.setLookAndFeel(str);
               }catch(Exception e)
               {
