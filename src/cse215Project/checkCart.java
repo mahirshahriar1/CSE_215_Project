@@ -16,10 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class checkCart extends javax.swing.JFrame {
 
-    int row;
-    Cart tmp=new Cart();
+    int row = -1;
+    Cart tmp = new Cart();
     Staff e;
- DecimalFormat formatter;
+    DecimalFormat formatter;
 
     public checkCart() {
         initComponents();
@@ -27,30 +27,29 @@ public class checkCart extends javax.swing.JFrame {
         initComponents();
         addDataToTable();
     }
-    
-     public checkCart(Staff e) {
-         this.e=e;
+
+    public checkCart(Staff e) {
+        this.e = e;
         initComponents();
         formatter = new DecimalFormat("#.##");
         addDataToTable();
     }
-   public void addDataToTable() {
+
+    public void addDataToTable() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         Object rowData[] = new Object[5];
         for (int i = 0; i < tmp.cart.size(); i++) {
-     
-            rowData[0] =  tmp.cart.get(i).getId();
-            rowData[1] =  tmp.cart.get(i).getQuantity();
-            rowData[2] =  tmp.cart.get(i).getName();
-            rowData[3] = formatter.format( tmp.cart.get(i).getPrice());
-            rowData[4] =  tmp.cart.get(i).getType();
+
+            rowData[0] = tmp.cart.get(i).getId();
+            rowData[1] = tmp.cart.get(i).getQuantity();
+            rowData[2] = tmp.cart.get(i).getName();
+            rowData[3] = formatter.format(tmp.cart.get(i).getPrice());
+            rowData[4] = tmp.cart.get(i).getType();
             model.addRow(rowData);
         }
-        
+
     }
 
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -222,69 +221,71 @@ public class checkCart extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
-        addProductToCart temp=new addProductToCart(e);
+        addProductToCart temp = new addProductToCart(e);
         temp.setVisible(true);
         temp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-         row = jTable2.getSelectedRow();
+        row = jTable2.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        
-        int x=Integer.parseInt(model.getValueAt(row, 1).toString());
+
+        int x = Integer.parseInt(model.getValueAt(row, 1).toString());
         jSpinner1.setValue(x);
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int quantity=(Integer) jSpinner1.getValue();
-        
-         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        
-        int x=Integer.parseInt(model.getValueAt(row, 1).toString());
-        
-        if(x<quantity)
-            JOptionPane.showMessageDialog(null,"You can only decrease the amount of quantity from the cart");
-        else if(quantity==0)
-        {
-             tmp.cart.remove(row);
-              model.setRowCount(0);
-            addDataToTable();
-            JOptionPane.showMessageDialog(null,"Removed");
-        }
-        else
-        {
-            tmp.cart.get(row).setQuantity(quantity);
-            model.setRowCount(0);
-            addDataToTable();
-            JOptionPane.showMessageDialog(null,"Edited");
-            
+
+        if (row == -1)
+            JOptionPane.showMessageDialog(null, "No item selected");
+        else {
+            int quantity = (Integer) jSpinner1.getValue();
+
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+            int x = Integer.parseInt(model.getValueAt(row, 1).toString());
+
+            if (x < quantity) {
+                JOptionPane.showMessageDialog(null, "You can only decrease the amount of quantity from the cart");
+            } else if (quantity == 0) {
+                tmp.cart.remove(row);
+                model.setRowCount(0);
+                addDataToTable();
+                JOptionPane.showMessageDialog(null, "Removed");
+            } else {
+                tmp.cart.get(row).setQuantity(quantity);
+                model.setRowCount(0);
+                addDataToTable();
+                JOptionPane.showMessageDialog(null, "Edited");
+
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-         model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
         Collections.sort(tmp.cart, new priceSort());
         addDataToTable();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-         model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
         Collections.sort(tmp.cart, new idSort());
         addDataToTable();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-         model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
         Collections.sort(tmp.cart, new quantitySort());
         addDataToTable();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-         model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
         Collections.sort(tmp.cart, new PComparator());
         addDataToTable();
     }//GEN-LAST:event_jButton6ActionPerformed
