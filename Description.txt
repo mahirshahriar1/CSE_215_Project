@@ -3,3 +3,7 @@ CSE 215 Project on Supermarket Stock Management.
 Done by-
 Mahir Shahriar Tamim
 Sharjil Khan
+
+
+-Run using Netbeans.
+-Or, you can check the project report for pictures and project details.
